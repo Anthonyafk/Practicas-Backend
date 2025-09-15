@@ -1,6 +1,8 @@
 package com.product.api.service;
 
 import com.product.api.entity.Category;
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +14,9 @@ public interface SvcCategory {
     /**
      * Obtiene todas las categorías activas.
      * 
-     * @return Lista de categorías activas
+     * @return ResponseEntity con la lista de categorías activas
      */
-    List<Category> getCategories();
+    ResponseEntity<List<Category>> getCategories();
 
     /**
      * Obtiene una categoría por su ID.

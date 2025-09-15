@@ -32,17 +32,8 @@ public class CtrlCategory {
      */
     @GetMapping("/category")
     public ResponseEntity<List<Category>> getCategories() {
-        try {
-            List<Category> categories = svcCategory.getCategories();
-            if (categories.isEmpty()) {
-                return new ResponseEntity<>(categories, HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(categories, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return svcCategory.getCategories();
     }
-
 
     /**
      * Crea una nueva categoría.
@@ -100,5 +91,4 @@ public class CtrlCategory {
             return new ResponseEntity<>("Error interno del servidor", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
 }
