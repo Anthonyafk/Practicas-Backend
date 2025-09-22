@@ -14,7 +14,7 @@ import java.util.Optional;
  * Controlador REST para manejar las operaciones CRUD de categorías.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/Category")
 @CrossOrigin(origins = "*")
 public class CtrlCategory {
 
@@ -30,75 +30,8 @@ public class CtrlCategory {
      * 
      * @return ResponseEntity con la lista de categorías activas
      */
-    @GetMapping("/category")
-    public ResponseEntity<List<Category>> getCategories() {
-        try {
-            List<Category> categories = svcCategory.getCategories();
-            if (categories.isEmpty()) {
-                return new ResponseEntity<>(categories, HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(categories, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping("")
+    public ResponseEntity<List<Category>> findAll() {
+        return svcCategory.findAll();
     }
-
-
-    /**
-     * Crea una nueva categoría.
-     * 
-     * @param category Categoría a crear
-     * @return ResponseEntity con la categoría creada
-     */
-    @PostMapping("/category")
-    public ResponseEntity<?> createCategory(@RequestBody Category category) {
-        try {
-            Category createdCategory = svcCategory.createCategory(category);
-            return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Error interno del servidor", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
-     * Actualiza una categoría existente.
-     * 
-     * @param id ID de la categoría a actualizar
-     * @param category Datos actualizados de la categoría
-     * @return ResponseEntity con la categoría actualizada
-     */
-    @PutMapping("/category/{id}")
-    public ResponseEntity<?> updateCategory(@PathVariable("id") Integer id, @RequestBody Category category) {
-        try {
-            Category updatedCategory = svcCategory.updateCategory(id, category);
-            return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Error interno del servidor", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
-     * Elimina lógicamente una categoría (cambia status a 0).
-     * 
-     * @param id ID de la categoría a eliminar
-     * @return ResponseEntity con el resultado de la operación
-     */
-    @DeleteMapping("/category/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable("id") Integer id) {
-        try {
-            boolean deleted = svcCategory.deleteCategory(id);
-            if (deleted) {
-                return new ResponseEntity<>("Categoría eliminada correctamente", HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>("Categoría no encontrada", HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>("Error interno del servidor", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    
 }
