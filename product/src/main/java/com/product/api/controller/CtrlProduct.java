@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 public class CtrlProduct {
 
-    @GetMapping("/category")
+    @GetMapping("/Lista")
     public List<Category> getCategories() {
         return List.of(
             new Category(1, "Lentes", "Lts", 1),
