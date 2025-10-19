@@ -1,5 +1,7 @@
 package com.product.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 
 /**
@@ -15,25 +17,29 @@ public class Category {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("category_id")
     @Column(name = "category_id")
     private Integer categoryId;
 
     /**
      * Nombre de la categoría. Debe ser único.
      */
-    @Column(name = "category", nullable = false, unique = true, length = 100)
+    @JsonProperty("category")
+    @Column(name = "category")
     private String category;
 
     /**
      * Tag o abreviatura de la categoría. Debe ser único.
      */
-    @Column(name = "tag", nullable = false, unique = true, length = 100)
+    @JsonProperty("tag")
+    @Column(name = "tag")
     private String tag;
 
     /**
      * Estatus de la categoría (1 = activa, 0 = eliminada).
      */
-    @Column(name = "status", nullable = false)
+    @JsonProperty("status")
+    @Column(name = "status")
     private Integer status;
 
     /**
@@ -47,7 +53,7 @@ public class Category {
      * 
      * @param categoryId Identificador único.
      * @param category   Nombre de la categoría.
-     * @param tag        Tag o abreviatura.
+     * @param tag        Tag.
      * @param status     Estatus (1 = activa, 0 = eliminada).
      */
     public Category(Integer categoryId, String category, String tag, Integer status) {
@@ -57,18 +63,6 @@ public class Category {
         this.status = status;
     }
 
-    /**
-     * Constructor sin ID para crear nuevas categorías.
-     * 
-     * @param category Nombre de la categoría.
-     * @param tag      Tag o abreviatura.
-     * @param status   Estatus (1 = activa, 0 = eliminada).
-     */
-    public Category(String category, String tag, Integer status) {
-        this.category = category;
-        this.tag = tag;
-        this.status = status;
-    }
 
     // Getters y Setters
     public Integer getCategoryId() {
